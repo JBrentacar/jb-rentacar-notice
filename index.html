@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JBレンタカー｜お申込み前のご確認</title>
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      background: #f4f6f9;
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 60px;
+    }
+
+    /* ===== Header ===== */
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .header img {
+      width: 180px;
+      max-width: 100%;
+      margin-bottom: 8px;
+    }
+    .header h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: 0.04em;
+    }
+    .header p.subtitle {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* ===== Card Container ===== */
+    .card-container {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ===== Notice Card ===== */
+    .notice-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      overflow: hidden;
+    }
+
+    .notice-card__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .notice-card__number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    .card--blue  .notice-card__number { background: #1565c0; }
+    .card--snow  .notice-card__number { background: #0288d1; }
+    .card--truck .notice-card__number { background: #2e7d32; }
+    .card--warn  .notice-card__number { background: #e65100; }
+
+    .notice-card__title {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .card--blue  .notice-card__title { color: #1565c0; }
+    .card--snow  .notice-card__title { color: #0288d1; }
+    .card--truck .notice-card__title { color: #2e7d32; }
+    .card--warn  .notice-card__title { color: #e65100; }
+
+    .notice-card__body {
+      padding: 18px 20px;
+      font-size: 0.93rem;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    /* ===== Insurance Button ===== */
+    .btn-insurance {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 10px 20px;
+      background: #1565c0;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+      text-decoration: none;
+    }
+    .btn-insurance:hover { background: #0d47a1; }
+    .btn-insurance svg { flex-shrink: 0; }
+
+    /* ===== Highlight Box ===== */
+    .highlight-box {
+      background: #e3f2fd;
+      border-left: 4px solid #1565c0;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-top: 12px;
+      font-size: 0.88rem;
+      color: #1a237e;
+    }
+    .highlight-box--green {
+      background: #e8f5e9;
+      border-left-color: #2e7d32;
+      color: #1b5e20;
+    }
+    .highlight-box--orange {
+      background: #fff3e0;
+      border-left-color: #e65100;
+      color: #bf360c;
+    }
+
+    /* ===== Tag ===== */
+    .tag {
+      display: inline-block;
+      background: #e3f2fd;
+      color: #1565c0;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 4px;
+      padding: 2px 8px;
+      margin-right: 6px;
+    }
+    .tag--green { background: #e8f5e9; color: #2e7d32; }
+    .tag--snow  { background: #e1f5fe; color: #0277bd; }
+
+    /* ===== Divider ===== */
+    .divider {
+      border: none;
+      border-top: 1px dashed #ddd;
+      margin: 14px 0;
+    }
+
+    /* ===== Agreement Section ===== */
+    .agreement-section {
+      width: 100%;
+      max-width: 680px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .agreement-section p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+    .agreement-section p strong {
+      color: #1a1a1a;
+    }
+
+    .btn-agree {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 40px;
+      background: linear-gradient(135deg, #1565c0, #0d47a1);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 4px 16px rgba(21,101,192,.35);
+      letter-spacing: 0.05em;
+    }
+    .btn-agree:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(21,101,192,.5);
+    }
+    .btn-agree:active { transform: translateY(0); }
+
+    /* ===== Modal ===== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-overlay.is-open { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 660px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,.25);
+    }
+
+    .modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid #eee;
+      background: #1565c0;
+      color: #fff;
+    }
+    .modal__header h2 { font-size: 1rem; font-weight: 700; }
+    .modal__close {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 4px;
+    }
+    .modal__close:hover { opacity: .8; }
+
+    .modal__body {
+      flex: 1;
+      overflow: hidden;
+    }
+    .modal__body iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      border: none;
+      display: block;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 480px) {
+      .header h1 { font-size: 1.1rem; }
+      .notice-card__body { font-size: 0.88rem; }
+      .btn-agree { font-size: 0.95rem; padding: 14px 28px; }
+      .modal__body iframe { min-height: 400px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="header">
+    <img src="jblogo.png" alt="JBレンタカー" onerror="this.style.display='none'" />
+    <h1>お申込み前の重要事項のご確認</h1>
+    <p class="subtitle">以下の内容をご確認のうえ、お申込みへお進みください。</p>
+  </header>
+
+  <!-- ===== Cards ===== -->
+  <div class="card-container">
+
+    <!-- ① 保険 -->
+    <div class="notice-card card--blue">
+      <div class="notice-card__header">
+        <div class="notice-card__number">1</div>
+        <div class="notice-card__title">🛡️ 車両保険・免責補償について</div>
+      </div>
+      <div class="notice-card__body">
+        <p>車両保険および免責補償は<strong>任意加入</strong>となっております。ご契約時に加入の有無をご選択ください。</p>
+        <div class="highlight-box" style="margin-top:12px;">
+          ⚠️ <strong>途中での追加加入はできません。</strong>ご契約前に必ず内容をご確認ください。
+        </div>
+        <p style="margin-top:14px; font-size:0.88rem; color:#555;">
+          加入シミュレーション機能もご用意しています。下記ボタンよりご確認いただけます。
+        </p>
+        <button class="btn-insurance" onclick="openModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          保険・補償内容を確認する
+        </button>
+      </div>
+    </div>
+
+    <!-- ② スタッドレス -->
+    <div class="notice-card card--snow">
+      <div class="notice-card__header">
+        <div class="notice-card__number">2</div>
+        <div class="notice-card__title">❄️ スタッドレスタイヤについて</div>
+      </div>
+      <div class="notice-card__body">
+        <p>
+          <span class="tag tag--snow">12月〜3月末</span>の期間は<strong>スタッドレスタイヤ装着オプションが必須</strong>となります。
+        </p>
+        <hr class="divider" />
+        <p>装着・取り外しは弊社指定の<strong>石巻市内工場</strong>にて対応いたします。</p>
+        <div class="highlight-box" style="margin-top:12px; border-left-color:#0288d1; background:#e1f5fe; color:#01579b;">
+          🔧 お客様自身での装着・取り外しはできません。ご了承ください。
+        </div>
+      </div>
+    </div>
+
+    <!-- ③ 配送 -->
+    <div class="notice-card card--truck">
+      <div class="notice-card__header">
+        <div class="notice-card__number">3</div>
+        <div class="notice-card__title">🚗 配送サービスについて</div>
+      </div>
+      <div class="notice-card__body">
+        <p>
+          <span class="tag tag--green">30日以上のご利用</span>で<strong>宮城県内への配送が無料！</strong>ご自宅などご希望の場所でお受け取りいただけます。
+        </p>
+        <hr class="divider" />
+        <table style="width:100%; border-collapse:collapse; font-size:0.88rem; margin-top:4px;">
+          <tr>
+            <td style="padding:6px 8px; color:#555; white-space:nowrap;">📅 配送対応日</td>
+            <td style="padding:6px 8px; font-weight:700;">平日（水曜除く）</td>
+          </tr>
+          <tr style="background:#f9f9f9;">
+            <td style="padding:6px 8px; color:#555; white-space:nowrap;">🏠 返却場所</td>
+            <td style="padding:6px 8px; font-weight:700;">
+              JBレンタカー石巻店<br>
+              <span style="font-weight:400; font-size:0.83rem; color:#555;">〒986-0814 宮城県石巻市南中里2-9-27</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- ④ 注意 -->
+    <div class="notice-card card--warn">
+      <div class="notice-card__header">
+        <div class="notice-card__number">!</div>
+        <div class="notice-card__title">⚠️ 車両取り置きについて</div>
+      </div>
+      <div class="notice-card__body">
+        <div class="highlight-box--orange highlight-box">
+          <strong>申請完了時点での車両の取り置きは承っておりません。</strong><br>
+          ご了承いただいたうえでお申込みください。
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /card-container -->
+
+  <!-- ===== Agreement ===== -->
+  <div class="agreement-section" style="margin-top: 28px;">
+    <p>
+      上記すべての内容をご確認いただけましたか？<br>
+      <strong>同意される場合は下記よりお申込みフォームへお進みください。</strong>
+    </p>
+    <a class="btn-agree" href="https://linkly.link/2czsu" target="_blank" rel="noopener noreferrer">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      同意してお申込みフォームへ
+    </a>
+  </div>
+
+  <!-- ===== Modal ===== -->
+  <div class="modal-overlay" id="insuranceModal" role="dialog" aria-modal="true" aria-label="保険・補償内容">
+    <div class="modal">
+      <div class="modal__header">
+        <h2>🛡️ 保険・補償内容の確認</h2>
+        <button class="modal__close" onclick="closeModal()" aria-label="閉じる">&times;</button>
+      </div>
+      <div class="modal__body">
+        <iframe
+          id="insuranceFrame"
+          src=""
+          title="保険・補償内容"
+          loading="lazy"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const INSURANCE_URL = 'https://x.gd/JBRT_insurance';
+
+    function openModal() {
+      const modal = document.getElementById('insuranceModal');
+      const frame = document.getElementById('insuranceFrame');
+      if (!frame.src || frame.src === window.location.href) {
+        frame.src = INSURANCE_URL;
+      }
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('insuranceModal');
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    // オーバーレイクリックで閉じる
+    document.getElementById('insuranceModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    // ESCキーで閉じる
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+
+</body>
+</html>
